@@ -64,6 +64,15 @@
             height: 25%;
             width: 25%;
         }
+        .profile-image{
+            height: 50px;
+            width: 50px;
+        }
+        .profile-area{
+            position: absolute;
+            right: 3%;
+            top: 2%;
+        }
     </style>
 </head>
 <body>
@@ -98,5 +107,9 @@
             </div>
         </div>
     </div>
+    <div class="profile-area">
+        <img src="/img/profile.png" alt="" class="profile-image" onclick="pageInteract.clickProfile()">
+    </div>
+    <script src="/src/index.js"></script>
 </body>
 </html>

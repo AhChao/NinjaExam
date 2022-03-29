@@ -40,6 +40,7 @@
         .side-bar{
             height: 100%;
             background-color: rgb(213, 214, 183);
+            text-align: left;
         }
         .content-block{
             background-color: rgb(213, 214, 183);
@@ -51,7 +52,7 @@
         .training-material{
             font-size: 1.5rem;
         }
-        #quiz-title{
+        #question-title{
             font-size: 1.5rem;
         }
         #option-field{
@@ -60,7 +61,7 @@
         .mini-block-hr{
             border-top: 2px dashed rgb(142, 45, 65);;
         }
-        .quiz-image{
+        .question-image{
             height: 25%;
             width: 25%;
         }
@@ -73,6 +74,13 @@
             right: 3%;
             top: 2%;
         }
+        .selected-course{
+            text-decoration: underline;
+            color: rgb(142, 45, 65);
+        }
+        .question-button{
+            margin-top: 2px;
+        }
     </style>
 </head>
 <body>
@@ -83,26 +91,29 @@
             </div>
             <div class="col-3 main-block-border side-bar">
                 <h2>Index</h2>
+                <div id="courseSideBar"></div>
             </div>
             <div class="col-9 main-block-border content-block">
-                <h2 id="content-title">Referral</h2>
-                <div id="training-block">
+                <h2 id="contentTitle">Referral</h2>
+                <div id="trainingBlock">
                     <h3>Training Material</h3>
-                    <a href="https://drive.google.com/file/d/10dyaJYo3ytzfhaZ5S9ymegv2BvVOVcPG/view" class="link-text">Video Link</a><br>
-                    <span class="training-material">Please refer to this link</span>
+                    <a id="trainingLink" href="https://drive.google.com/file/d/10dyaJYo3ytzfhaZ5S9ymegv2BvVOVcPG/view" class="link-text" target="_blank">Training Link</a><br>
+                    <span id="trainingDescription" class="training-material">Please refer to this link</span>
                 </div>
                 <hr class="mini-block-hr">
-                <div id="exam-block">
+                <div id="examBlock">
                     <h3 class="content-title">Exam</h3>
-                    <span id="quiz-title">Q1.Do you like cats?</span><br>
-                    <img src="/img/exam-sample.png" class="quiz-image">
-                    <div id="option-field">
-                        <span class="quiz-option"><input type="checkbox" id="option1"> 1.Yes</span><br>
-                        <span class="quiz-option"><input type="checkbox" id="option1"> 2.Yes</span><br>
+                    <span id="questionDescription">Q1.Do you like cats?</span><br>
+                    <!--<img src="/img/exam-sample.png" class="question-image">-->
+                    <div id="answerSelections">
+                        <span class="question-option"><input type="checkbox" id="option1"> 1.Yes</span><br>
+                        <span class="question-option"><input type="checkbox" id="option1"> 2.Yes</span><br>
                     </div>
-                    <button id="PreviousButton" class="quiz-button">Previous</button>
-                    <span>1 / 20</span>
-                    <button id="PreviousButton" class="quiz-button">Next</button>
+                    <button id="previousButton" onclick="examHandler.previousQuestion()" class="question-button">Previous</button>
+                    <span id="questionsPage">1 / 20</span>
+                    <button id="nextButton" onclick="examHandler.nextQuestion()" class="question-button">Next</button>
+                    <br>
+                    <button class="question-button" onclick="examHandler.submitExam()">Submit Your Answer</button>
                 </div>
             </div>
         </div>

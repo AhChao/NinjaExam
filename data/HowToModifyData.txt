@@ -1,0 +1,6 @@
+1.Fill your data in excel
+2.Save as csv
+3.If contain non-english text, please open as notepad and save as new with with UTF-8 encode
+4.Go to https://csvjson.com/csv2json
+5.Upload csv, click convert, click download
+6.Save to this folder with correct name.

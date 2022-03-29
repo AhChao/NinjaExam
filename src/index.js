@@ -21,10 +21,12 @@ let pageViewHandler = {
         this.sideBarElement.innerHTML = "";
         let sideBarInnerHTML = "";
         let course;
+        let isCourseReady;
         for(let i in pageData.courseData)
         {
             course = pageData.courseData[i];
-            sideBarInnerHTML += "<span class='course-item " + (this.selectedCourseId == course.CourseId ? "selected-course" : "") + "' onclick='pageInteract.clickCourseItem(this.name)' name="+course.CourseId+">" + course.CourseId + ". " + course.CourseName + "</span><br/>";
+            isCourseReady = course.IncludeExam == 'TRUE' || course.IncludeTraining == 'TRUE';
+            sideBarInnerHTML += "<span class='course-item "+ (isCourseReady ? " " : " not-ready-course " ) + " " + (this.selectedCourseId == course.CourseId ? " selected-course " : " ") + "' onclick='pageInteract.clickCourseItem(this.id)' id=course"+course.CourseId+">" + course.CourseId + ". " + course.CourseName + "</span><br/>";
         }
         this.sideBarElement.innerHTML = sideBarInnerHTML;
     },
@@ -60,8 +62,14 @@ let pageInteract = {
         this.profileAreaExpand = !this.profileAreaExpand;
     },
     clickCourseItem : function(courseId){
-        pageViewHandler.selectedCourseId = courseId;
+        var elems = document.querySelectorAll(".selected-course");
+        [].forEach.call(elems, function(el) {
+            el.classList.remove("selected-course");
+        });
+        pageViewHandler.selectedCourseId = courseId.split("course")[1];
         pageViewHandler.loadCourseDataWithNowSelectedCourse();
+        document.getElementById("course"+pageViewHandler.selectedCourseId).classList += " selected-course";
+        examHandler.initExamBySelectedCourseId();
     }
 }
 
@@ -74,9 +82,11 @@ let examHandler = {
     nextButtonElement : document.getElementById("nextButton"),
     previousButtonElement : document.getElementById("previousButton"),
     initExamBySelectedCourseId : function(){  
+        this.nowQuestionId = 1;
+        this.questionQueue = [],
         this.totalQuestionCount = pageData.courseData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId)[0].QuestionCount;
         this.answerQueue = Array.apply(null, {length: this.totalQuestionCount+1}).map(Number.call, function(){return 0;});
-        this.loadQuestion(1);  
+        this.loadQuestion(this.nowQuestionId);  
     },
     loadQuestion : function(questionId){
         let exam = pageData.examData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId && x.QuestionId == questionId)[0];
@@ -84,7 +94,7 @@ let examHandler = {
         let answerSelections = exam.AnswerSelections;
         this.nowQuestionId = questionId;
         this.previousButtonElement.disabled = this.nowQuestionId - 1 < 1;
-        this.nextButtonElement.disabled = this.nowQuestionId + 1 > this.totalQuestionCount;
+        this.nextButtonElement.disabled = Number(this.nowQuestionId) + 1 > this.totalQuestionCount;
         this.nowQuestionAnswerOptionCount = answerSelections.split("\n").length;
         pageViewHandler.loadQuestionOnView(questionDescription, answerSelections, this.answerQueue[this.nowQuestionId]);  
     },

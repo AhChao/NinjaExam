@@ -49,7 +49,7 @@ let pageViewHandler = {
         this.updateQuestionsPage();
     },
     updateQuestionsPage : function(){
-        this.questionsPageElement.innerHTML = examHandler.nowQuestionId + " / " + examHandler.totalQuestionCount;
+        this.questionsPageElement.innerHTML = (Number(examHandler.nowQuestionQueueId)+1) + " / " + examHandler.totalQuestionCount;
     }
 }
 
@@ -74,46 +74,59 @@ let pageInteract = {
 }
 
 let examHandler = {
-    nowQuestionId : 1,
+    nowQuestionQueueId : 0,
     nowQuestionAnswerOptionCount : 0,
+    isQuestionOrderByRandom : false,
     totalQuestionCount : 0,
     questionQueue : [],
     answerQueue : [],
     nextButtonElement : document.getElementById("nextButton"),
     previousButtonElement : document.getElementById("previousButton"),
     initExamBySelectedCourseId : function(){  
-        this.nowQuestionId = 1;
-        this.questionQueue = [],
+        this.nowQuestionQueueId = 0;
         this.totalQuestionCount = pageData.courseData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId)[0].QuestionCount;
-        this.answerQueue = Array.apply(null, {length: this.totalQuestionCount+1}).map(Number.call, function(){return 0;});
-        this.loadQuestion(this.nowQuestionId);  
+        this.isQuestionOrderByRandom = pageData.courseData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId)[0].IsQuestionOrderByRandom;
+        let questionIds = pageData.examData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId).map(function(question) {
+            return Number(question['QuestionId']);
+          });;
+        if(this.isQuestionOrderByRandom)
+        {    
+            this.questionQueue = questionIds.sort(() => 0.5 - Math.random());
+        }
+        else
+        {
+            this.questionQueue = questionIds.sort(function(a, b) {return a - b;});
+        }
+        this.questionQueue = this.questionQueue.slice(0,this.totalQuestionCount);
+        this.answerQueue = Array.apply(null, {length: this.totalQuestionCount}).map(Number.call, function(){return 0;});
+        this.loadQuestion(this.nowQuestionQueueId);  
     },
-    loadQuestion : function(questionId){
-        let exam = pageData.examData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId && x.QuestionId == questionId)[0];
-        let questionDescription = questionId + ". " + exam.QuestionDescription;
-        let answerSelections = exam.AnswerSelections;
-        this.nowQuestionId = questionId;
-        this.previousButtonElement.disabled = this.nowQuestionId - 1 < 1;
-        this.nextButtonElement.disabled = Number(this.nowQuestionId) + 1 > this.totalQuestionCount;
+    loadQuestion : function(nowQuestionQueueId){
+        let question = pageData.examData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId && x.QuestionId == this.questionQueue[nowQuestionQueueId])[0];
+        let questionDescription = (Number(nowQuestionQueueId) + 1) + ". " + question.QuestionDescription;
+        let answerSelections = question.AnswerSelections;
+        this.nowQuestionQueueId = nowQuestionQueueId;
+        this.previousButtonElement.disabled = this.nowQuestionQueueId - 1 < 0;
+        this.nextButtonElement.disabled = Number(this.nowQuestionQueueId) + 2 > this.totalQuestionCount;
         this.nowQuestionAnswerOptionCount = answerSelections.split("\n").length;
-        pageViewHandler.loadQuestionOnView(questionDescription, answerSelections, this.answerQueue[this.nowQuestionId]);  
+        pageViewHandler.loadQuestionOnView(questionDescription, answerSelections, this.answerQueue[this.nowQuestionQueueId]);  
     },
     nextQuestion : function(){
         this.saveNowAnswer();
-        this.nowQuestionId += 1;
-        this.loadQuestion(this.nowQuestionId);
+        this.nowQuestionQueueId += 1;
+        this.loadQuestion(this.nowQuestionQueueId);
     },
     previousQuestion : function(){
         this.saveNowAnswer();
-        this.nowQuestionId -= 1;
-        this.loadQuestion(this.nowQuestionId);
+        this.nowQuestionQueueId -= 1;
+        this.loadQuestion(this.nowQuestionQueueId);
     },
     saveNowAnswer : function(){
         for(var i=1; i <= this.nowQuestionAnswerOptionCount; i++)
         {
             if(document.getElementById("option"+i).checked)
             {
-                this.answerQueue[this.nowQuestionId] = i;   
+                this.answerQueue[this.nowQuestionQueueId] = i;   
             }
         }
     },
@@ -128,7 +141,7 @@ let examHandler = {
         console.log(this.answerQueue,examQuestionSet);
         for(let i in examQuestionSet)
         {                
-            if(this.answerQueue[Number(i)+1] == examQuestionSet[i].CorrectAnswerNumber)
+            if(this.answerQueue[i] == examQuestionSet[i].CorrectAnswerNumber)
                 correctCount++;
         }
         let score = (correctCount / this.totalQuestionCount) * 100;

@@ -3,9 +3,9 @@ let pageData = {
     trainingData : [],
     examData : [],
     initialDataByFiles : function(){
-        fetch("/data/Course.json").then(response => response.json()).then(json => {this.courseData = json; pageViewHandler.initSidebarCourseData(); });
-        fetch("/data/Exam.json").then(response => response.json()).then(json => {this.examData = json; examHandler.initExamBySelectedCourseId(); });
-        fetch("/data/Training.json").then(response => response.json()).then(json => {this.trainingData = json; pageViewHandler.loadCourseDataWithNowSelectedCourse(); });
+        fetch("./data/Course.json").then(response => response.json()).then(json => {this.courseData = json; pageViewHandler.initSidebarCourseData(); });
+        fetch("./data/Exam.json").then(response => response.json()).then(json => {this.examData = json; examHandler.initExamBySelectedCourseId(); });
+        fetch("./data/Training.json").then(response => response.json()).then(json => {this.trainingData = json; pageViewHandler.loadCourseDataWithNowSelectedCourse(); });
     }
 };
 let pageViewHandler = {

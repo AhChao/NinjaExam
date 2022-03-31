@@ -137,8 +137,12 @@ let examHandler = {
             if (!confirm('You still have some questiones not answer yet, do you want to submit the exam anyway?')) return;
         }
         let correctCount = 0;
-        let examQuestionSet = pageData.examData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId);
-        console.log(this.answerQueue,examQuestionSet);
+        let fullExamQuestionSet = pageData.examData.filter(x=>x.CourseId == pageViewHandler.selectedCourseId)
+        let examQuestionSet = [];
+        for(var i = 0; i < this.questionQueue.length; i++)
+        {
+            examQuestionSet.push(fullExamQuestionSet.filter(x=>x.QuestionId == this.questionQueue[i])[0]);
+        }
         for(let i in examQuestionSet)
         {                
             if(this.answerQueue[i] == examQuestionSet[i].CorrectAnswerNumber)

@@ -1,0 +1,20 @@
+[
+  {
+    "CourseId": 1,
+    "CourseName": "Javascript",
+    "IncludeTraining": "TRUE",
+    "IncludeExam": "TRUE",
+    "IsQuestionOrderByRandom": "FALSE",
+    "QuestionCount": 5,
+    "CourseParentNo": 0
+  },
+  {
+    "CourseId": 2,
+    "CourseName": "MS SQL",
+    "IncludeTraining": "TRUE",
+    "IncludeExam": "TRUE",
+    "IsQuestionOrderByRandom": "TRUE",
+    "QuestionCount": 5,
+    "CourseParentNo": 0
+  }
+]

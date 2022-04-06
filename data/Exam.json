@@ -1,0 +1,82 @@
+[
+  {
+    "CourseId": 1,
+    "QuestionId": 1,
+    "QuestionDescription": "Which keyword in javascript is not use to declare a variable?",
+    "AnswerSelections": "1.let\n2.var\n3.void\n4.const",
+    "CorrectAnswerNumber": 3,
+    "Score": ""
+  },
+  {
+    "CourseId": 1,
+    "QuestionId": 2,
+    "QuestionDescription": "Which keyword in javascript is no related to loop?",
+    "AnswerSelections": "1.while\n2.for\n3.foreach\n4.declare",
+    "CorrectAnswerNumber": 4,
+    "Score": ""
+  },
+  {
+    "CourseId": 1,
+    "QuestionId": 3,
+    "QuestionDescription": "Which is not a correct symbol in javascript to create a comment?",
+    "AnswerSelections": "1.//\n2./**/\n3.--",
+    "CorrectAnswerNumber": 3,
+    "Score": ""
+  },
+  {
+    "CourseId": 1,
+    "QuestionId": 4,
+    "QuestionDescription": "Which is not a valid operator in javascript?",
+    "AnswerSelections": "1.#\n2.*\n3.%\n4.-",
+    "CorrectAnswerNumber": 1,
+    "Score": ""
+  },
+  {
+    "CourseId": 1,
+    "QuestionId": 5,
+    "QuestionDescription": "What is the result of console.log(1+\"2\"+1) print?",
+    "AnswerSelections": "1.4\n2.13\n3.121\n4.31",
+    "CorrectAnswerNumber": 3,
+    "Score": ""
+  },
+  {
+    "CourseId": 2,
+    "QuestionId": 1,
+    "QuestionDescription": "What is sql stand for?",
+    "AnswerSelections": "1.Score Query Learning\n2.Structured Query Language\n3.Serial Question Language\n4.Simple Question Lamp",
+    "CorrectAnswerNumber": 2,
+    "Score": ""
+  },
+  {
+    "CourseId": 2,
+    "QuestionId": 2,
+    "QuestionDescription": "How to let the user to retrieve the data without being affected by the locks?",
+    "AnswerSelections": "1.FROM Table NOLOCK\n2.FROM Table WITH(NOLOCK)\n3.FROM Table NOLUCK\n4.FROM Table WITH(DIRECT)",
+    "CorrectAnswerNumber": 2,
+    "Score": ""
+  },
+  {
+    "CourseId": 2,
+    "QuestionId": 3,
+    "QuestionDescription": "Which statement will show result when left and right table both have values?",
+    "AnswerSelections": "1.INNER JOIN\n2.LEFT JOIN\n3.RIGHT JOIN\n4.OUTER JOIN",
+    "CorrectAnswerNumber": 1,
+    "Score": ""
+  },
+  {
+    "CourseId": 2,
+    "QuestionId": 4,
+    "QuestionDescription": "Which is not a aggregate function?",
+    "AnswerSelections": "1.SUM\n2.MAX\n3.ORDER\n4.AVG",
+    "CorrectAnswerNumber": 3,
+    "Score": ""
+  },
+  {
+    "CourseId": 2,
+    "QuestionId": 5,
+    "QuestionDescription": "Which symbol is not use to deal with some case in LIKE statement?",
+    "AnswerSelections": "1.%\n2._\n3.?",
+    "CorrectAnswerNumber": 3,
+    "Score": ""
+  }
+]

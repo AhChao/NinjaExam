@@ -1,0 +1,12 @@
+[
+  {
+    "CourseId": 1,
+    "TrainingLink": "https://www.w3schools.com/js/DEFAULT.asp",
+    "TrainingDescription": "Please refer w3schools"
+  },
+  {
+    "CourseId": 2,
+    "TrainingLink": "https://www.w3schools.com/sql/default.asp",
+    "TrainingDescription": "Please refer w3schools"
+  }
+]
